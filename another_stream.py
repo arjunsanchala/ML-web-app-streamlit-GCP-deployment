@@ -1,15 +1,14 @@
+# importing useful libraries
 import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
-
 from sklearn.decomposition import PCA
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-
 from sklearn.metrics import accuracy_score
 
 st.write("""
@@ -17,6 +16,7 @@ st.write("""
 Which one is the best?
 """)
 
+# create select boxes for algorithms and datasets in sidebar
 dataset_name = st.sidebar.selectbox(
     'Select Dataset',
     ('Iris', 'Breast Cancer', 'Wine')
@@ -29,6 +29,7 @@ classifier_name = st.sidebar.selectbox(
     ('KNN', 'SVM', 'Random Forest')
 )
 
+# fuction to load selected dataset 
 def get_dataset(name):
     data = None
     if name == 'Iris':
@@ -42,6 +43,7 @@ def get_dataset(name):
 
     return X, y
 
+# Display the shape and classes of selected dataset 
 X, y= get_dataset(dataset_name)
 st.write('Shape of dataset:', X.shape)
 st.write('number of classes:', len(np.unique(y)), set(y))
@@ -51,11 +53,14 @@ df2 = pd.DataFrame(y).head(3)
 df3 = pd.DataFrame(X).tail(3)
 df4 = pd.DataFrame(y).tail(3)
 
+# Return head and tail of the selected dataset
 st.write("Head of the dataset")
 st.write(pd.concat([df1,df2],axis=1))
 
 st.write("Tail of the dataset")
 st.write(pd.concat([df3,df4],axis=1))
+
+# Adding the hyperparameters
 def add_parameter_ui(clf_name):
     params = dict()
     if clf_name == 'SVM':
@@ -73,6 +78,7 @@ def add_parameter_ui(clf_name):
 
 params = add_parameter_ui(classifier_name)
 
+# Assign hyperparameters according to algorithms 
 def get_classifier(clf_name, params):
     clf = None
     if clf_name == 'SVM':
@@ -80,11 +86,12 @@ def get_classifier(clf_name, params):
     elif clf_name == 'KNN':
         clf = KNeighborsClassifier(n_neighbors=params['K'])
     else:
-        clf = clf = RandomForestClassifier(n_estimators=params['n_estimators'],
+        clf = RandomForestClassifier(n_estimators=params['n_estimators'],
             max_depth=params['max_depth'], random_state=1234)
     return clf
 
 clf = get_classifier(classifier_name, params)
+
 #### CLASSIFICATION ####
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
