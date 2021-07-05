@@ -1,7 +1,7 @@
 # ML-web-app-with-streamlit (deployed on GCP)
 
 ## What is streamlit?
-streamlit is a one of the great web development libraries avaibale in python. If you do not know HTML, CSS and other web frameworks, streamlit library is a great option to make ML based websites using simple python code.  
+streamlit is a one of the greatest web development libraries avaibale in python. If you do not know HTML, CSS and other web frameworks, streamlit library is a great option to make ML based websites using simple python code.  
 
 ## Work flow:
 In this project, I have used 3 datasets: 'Iris', 'Breast Cancer' and 'Wine', and 3 machine learning models: 'KNN', 'SVM' and 'Random Forest'. Initially, I made functions to make an interactive UI (added buttons, slider and selectbox). Subsequently, the data was splitted between training and testing. Here, I have used various options, like user can use one of the 3 algorithms on one of the datasets, the screen will give the accuracy and other details of that algorithm on selected dataset.      
